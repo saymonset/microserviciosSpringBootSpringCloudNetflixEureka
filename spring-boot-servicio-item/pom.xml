@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.6</version>
-		<relativePath/> <!-- lookup parent from repository -->
+
+		<!-- Nuestro servicio producto tenga mas instancia desplegadas pero en 
+			dieferentes puertos. Que nuestro servicio itemes pueda consumir nuestro servicio 
+			productos y pueda seleccionar la emjor instancia disponible utilizando la 
+			libreria ribbon que es un balanceador de carga. La version de springboot 
+			2.4 en adelante no es compatible con Ribbon -->
+		<!-- <version>2.5.6</version> -->
+		<!-- Bajamos la version solo con efecto de usar Ribbon como balanceador 
+			de carga sin Eureka -->
+		<!-- SpringCloadLoadBalancer es equivalente a Ribbon y que viene por defecto -->
+		<version>2.3.12.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.formacionbdi.springboot.app.item</groupId>
 	<artifactId>spring-boot-servicio-item</artifactId>
@@ -15,7 +26,21 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
-		<spring-cloud.version>2020.0.4</spring-cloud.version>
+		<!-- Para usar la dependencia de Ribbon, se debe usar la serie de springboot 
+			2.2 o spring-boot 2.3 No sirve la 2.4 ni 2.5, porque desde a 2.4 en adelante 
+			no es compatible con Ribbon, ya se utiliza spring-cload-load-balancer -->
+		<!-- pring-cload-load-balancer no se puede usar sin Eureka -->
+
+		<!-- SpringCloadLoadBalancer es equivalente a Ribbon y que viene por defecto -->
+		<!-- Cada version de springBoot va con una nueva version especifica de 
+			spring-cloud -->
+		<!-- Va con laversion de springboot <version>2.5.6</version> -->
+		<!-- <spring-cloud.version>2020.0.4</spring-cloud.version> -->
+		<!-- Porque cambiamos de version de spring-boot para ussar Ribbon -->
+		<!-- se debe actualizar el spring-cloud que va con esa version especifica 
+			de sprngboot -->
+		<!-- Va con laversion de springboot <version>2.3.12.RELEASE</version> -->
+		<spring-cloud.version>Hoxton.SR12</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -38,6 +63,11 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
