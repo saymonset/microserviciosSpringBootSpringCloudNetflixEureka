@@ -22,7 +22,7 @@ import com.formacionbdi.springboot.app.item.models.Item;
 //o identificador del componente
 //Nombre que  se coloca de forma explicita
 @Service("serviceFeign")
-@Primary
+//@Primary
 public class ItemServiceFeign implements ItemService {
 
 	// Otra implementacion alternativa a lo que teniamos con restTemplate

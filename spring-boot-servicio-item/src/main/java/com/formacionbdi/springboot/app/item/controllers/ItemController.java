@@ -21,7 +21,10 @@ public class ItemController {
 //Como alternativa a primry.. Usamos qualifier con el nombre del bean en misnuscula
 //	la primera letra
   //o el uso de un nombre que  se coloca de forma explicita
-	@Qualifier("serviceFeign")
+
+//  Podemos suichear entre RestTemplate y Feign con el nombre de Qualifier
+  //@Qualifier("serviceFeign")
+  @Qualifier("serviceRestTemplate")
   private ItemService itemService;
 	@GetMapping("/listar")
 	public List<Item> listar(){
