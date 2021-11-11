@@ -15,7 +15,6 @@ import com.formacionbdi.springboot.app.item.models.Producto;
 //spring.application.name=servicio-productos
 //server.port=8001 de servicios-productos
 @FeignClient(name= "servicio-productos", url="localhost:8001")
-
 public interface ProductoClienteRest {
 	//Indicamos la ruta de este endpoint para consumir el servico del apiRest
 	//y obtener los datos del json pero convertidos a nuestros objetos
