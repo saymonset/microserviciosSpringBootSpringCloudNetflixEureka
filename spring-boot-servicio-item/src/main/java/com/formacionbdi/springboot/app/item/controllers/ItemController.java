@@ -23,8 +23,8 @@ public class ItemController {
   //o el uso de un nombre que  se coloca de forma explicita
 
 //  Podemos suichear entre RestTemplate y Feign con el nombre de Qualifier
-  //@Qualifier("serviceFeign")
-  @Qualifier("serviceRestTemplate")
+  @Qualifier("serviceFeign")
+  //@Qualifier("serviceRestTemplate")
   private ItemService itemService;
 	@GetMapping("/listar")
 	public List<Item> listar(){
