@@ -12,7 +12,10 @@ import com.formacionbdi.springboot.app.item.models.service.ItemService;
 
 @RestController
 public class ItemController {
-	@Autowired
+  
+	//Si quiero usar Feign.. En ves de RestTemplae entonces colcamos primary
+	//Se inyecta por defecto en el controlador
+  @Autowired
   private ItemService itemService;
 	@GetMapping("/listar")
 	public List<Item> listar(){
