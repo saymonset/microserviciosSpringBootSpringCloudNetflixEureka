@@ -43,6 +43,15 @@ public class ProductoController {
 		/* producto.setPort(Integer.parseInt(env.getProperty("local.server.port"))); */
 		producto.setPort(port);
 		
+		/*
+		 * // simulamos un error para usar Tolerancia de fallos, latencia, timeout es la
+		 * // Api Hystrix
+		 */		boolean ok = false;
+		if (!ok) {
+			throw new RuntimeException("No se pudo cargar el producto.");
+		}
+		/* end */
+		
 		return producto;
 	}
 }

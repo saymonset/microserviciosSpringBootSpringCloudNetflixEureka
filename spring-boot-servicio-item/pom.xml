@@ -69,6 +69,13 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
+		<!-- Tolerancia de fallos. Implementamos el patron de diseno corto circuit  que en ingles es circuit breaker.
+Api Hystrix es compatible con la serie spring-boot 2.2, 2.3, Hoxton.SR12 -->
+   <dependency>
+       <groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+   </dependency>
+		
 		<!-- #Esto libreria ribbon ya no va, ya que esta informacion nos la da eureka
 #Solo se comunicara mediante nombre de
 # la aplicacion o nombre del microservicio spring.application.name=servicio.item -->

@@ -10,3 +10,16 @@ Que nuestro servicio itemes pueda consumir nuestro servicio productos y pueda
 seleccionar la emjor instancia disponible utilizando la libreria ribbon que es
 un balanceador de carga.
 La version de springboot 2.4 en adelante no es compatible con Ribbon
+
+Seccion 3-> 23. Habilitamos los microservicos con eureka colocando la libreria Eureka Discovery Client
+de Spring Cloud Discover
+
+Seccion 3 -> 25. Tolerancia de fallos. Implementamos el patron de diseno corto circuit  que en ingles es circuit breaker.
+Api Hystrix es compatible con la serie spring-boot 2.2, 2.3
+Pero spring-boot 2.4 en adelante se utiliza Resiliance.
+
+Si usamos una version mas actualizada de spring-boot, por ejemplo la 2.5 en adelante 
+, en ves de utilizar ribbon, vas usar como balanceador de carga spring-cloud-load-balancer,
+y en ves de usar Hytrix como tolerancia de fallos, vas a utilizar resilience4j
+
+
