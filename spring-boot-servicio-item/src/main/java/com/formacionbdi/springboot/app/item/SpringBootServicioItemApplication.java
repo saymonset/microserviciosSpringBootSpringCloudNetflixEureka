@@ -2,7 +2,7 @@ package com.formacionbdi.springboot.app.item;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 //Importante para habilitar nuestro cliente feigns y nos permite
 //inyectar este cliente en los controladores
@@ -10,9 +10,19 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 /*configuramos RibbonClient*/
 /*
  * El servicio-productos debe ser exactamente igual a
- * com.formacionbdi.springboot.app.item.clientes.ProductoClienteRest
+ * com.formacionbdi.springboot.app.item.clientes.POroductoClienteRest
  */
-@RibbonClient(name = "servicio-productos")
+
+/*
+ * <!-- #Esto anotacion RibbonClient ya no va, ya que esta informacion nos la da eureka
+ * #Solo se comunicara mediante nombre de # la aplicacion o nombre del
+ * microservicio spring.application.name=servicio.item -->
+ * 
+ * @RibbonClient(name = "servicio-productos")
+ */
+//Se habilita de forma explicita el cliente eureka. 
+//No es necesario porque el pom ya esta declarada.. Pero es buena practica
+@EnableEurekaClient
 @SpringBootApplication
 public class SpringBootServicioItemApplication {
 

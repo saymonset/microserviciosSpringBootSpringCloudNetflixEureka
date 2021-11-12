@@ -1,0 +1,12 @@
+Libreria Feign. Otra forma de implementar un ciente http para la comunicacion entre microservicios. Es una alternativa a utilizar restTemplate.
+Feign es desarrollada por netflix y forma pate del ecosistema springCloud.
+Feign es mucho mas facil utilizando interfaces y anotaciones de forma declarativa.
+
+
+
+
+Nuestro servicio producto tenga mas instancia desplegadas pero en dieferentes puertos.
+Que nuestro servicio itemes pueda consumir nuestro servicio productos y pueda
+seleccionar la emjor instancia disponible utilizando la libreria ribbon que es
+un balanceador de carga.
+La version de springboot 2.4 en adelante no es compatible con Ribbon
