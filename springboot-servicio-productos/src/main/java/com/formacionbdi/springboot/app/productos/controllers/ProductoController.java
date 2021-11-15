@@ -70,12 +70,12 @@ public class ProductoController {
 //		 #es la suma de 10000 + 3000
 //		 ribbon.ConnectTimeout: 3000
 //		 ribbon.ReadTimeout: 100000
-//		 try {
-//			Thread.sleep(2000l);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		 try {
+			 Thread.sleep(2000l);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return producto;
 	}
