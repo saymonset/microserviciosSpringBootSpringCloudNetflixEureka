@@ -12,8 +12,8 @@ import com.netflix.zuul.exception.ZuulException;
 
 /*Marcarla como un bean de spring*/
 @Component
-public class PreTiempoTranscurridoFilter extends ZuulFilter{
-	private static Logger log = LoggerFactory.getLogger(PreTiempoTranscurridoFilter.class);
+public class PostTiempoTranscurridoFilter extends ZuulFilter{
+	private static Logger log = LoggerFactory.getLogger(PostTiempoTranscurridoFilter.class);
 
 	@Override
 	public boolean shouldFilter() {
@@ -28,8 +28,20 @@ public class PreTiempoTranscurridoFilter extends ZuulFilter{
 	
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest request = ctx.getRequest();
-		log.info(String.format("%s request enrutando a %s", request.getMethod(), request.getRequestURL().toString()));
-		Long tiempoInicio = System.currentTimeMillis();
+		/*
+		 * En pre era enrutando a post
+		 * log.info(String.format("%s enrutando a post a %s", request.getMethod(),
+		 * request.getRequestURL().toString()));
+		 */
+		log.info(String.format("entrando a post a POST FILTER"));
+		Long tiempoInicio = (Long)request.getAttribute("tiempoInicio");
+		Long tiempoFinal = System.currentTimeMillis();
+		Long tiempoTranscurrido = tiempoFinal - tiempoInicio;
+		log.info(String.format("Tiempo transcurrido en segundos %s seg.", tiempoTranscurrido.doubleValue() / 1000.00));
+		log.info(String.format("Tiempo transcurrido en milisegundos %s milisegundos", tiempoTranscurrido / 1000));
+		
+		
+		
 		request.setAttribute("tiempoInicio", tiempoInicio);
 		
 		return null;
@@ -38,7 +50,7 @@ public class PreTiempoTranscurridoFilter extends ZuulFilter{
 	@Override
 	public String filterType() {
 		// TODO Auto-generated method stub
-		return "pre";
+		return "post";
 	}
 
 	@Override
