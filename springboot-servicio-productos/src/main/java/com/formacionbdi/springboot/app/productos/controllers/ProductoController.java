@@ -30,8 +30,9 @@ public class ProductoController {
 	public List<Producto> listar(){
 		return productoService.findAll().stream()
 				.map((producto)->{
-					/* producto.setPort(Integer.parseInt(env.getProperty("local.server.port"))); */
-					producto.setPort(port);
+					/* Con este local.server.port va a tomar el puerto real dinamicamente */
+			     producto.setPort(Integer.parseInt(env.getProperty("local.server.port"))); 
+				//	producto.setPort(port);
 					return producto;
 				}).collect(Collectors.toList());
 	}
@@ -40,8 +41,9 @@ public class ProductoController {
 	public Producto detlle(@PathVariable Long id) {
 		
 		Producto producto = productoService.findById(id);
-		/* producto.setPort(Integer.parseInt(env.getProperty("local.server.port"))); */
-		producto.setPort(port);
+		/* Con este local.server.port va a tomar el puerto real dinamicamente */
+		 producto.setPort(Integer.parseInt(env.getProperty("local.server.port"))); 
+		//producto.setPort(port);
 		
 		/*
 		 * // simulamos un error para usar Tolerancia de fallos, latencia, timeout es la

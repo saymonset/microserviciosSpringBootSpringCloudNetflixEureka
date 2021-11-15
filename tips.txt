@@ -30,4 +30,20 @@ https://cloud.spring.io/spring-cloud-netflix/multi/multi__hystrix_timeouts_and_r
 
 https://spring.getdocs.org/en-US/spring-cloud-docs/spring-cloud-netflix/router-and-filter-zuul/uploading-files-through-zuul.html
 
+Aunmentamos el timeout de Hystrix que debe ser mayor  a Ribbon su timeout
+
+#Hystrix(Camino alternativo) envuelve  a ribbon (Balanceador de carga),
+# Entonces o ideal es que hystrix tenga un tiempo mayor a ribbon
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 13000
+ribbon.ConnectTimeout: 3000
+ribbon.ReadTimeout: 100000
+
+Seccion 23 -> 26
+
+Puerta de enlace Zuul (API GATEWAY). Que se encarga del acceso de los demas microservicios que estan registrados en eureka. Es la puerta de engrada a tod el ecoistema de mricroservicos.
+Enrutamiento de carga, balnceo dinamico y un conjunto de filros que se pueden implementar
+para manejo de rutas , seguridad , autorizacion
+
+
+
 
