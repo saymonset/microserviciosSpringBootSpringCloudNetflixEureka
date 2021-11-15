@@ -22,4 +22,12 @@ Si usamos una version mas actualizada de spring-boot, por ejemplo la 2.5 en adel
 , en ves de utilizar ribbon, vas usar como balanceador de carga spring-cloud-load-balancer,
 y en ves de usar Hytrix como tolerancia de fallos, vas a utilizar resilience4j
 
+Seccion 3 -> 26. Configurando timeout con Hystrix y Ribbon
+
+Ribbon que es el balanceador de carga y  Hytrix que es circuit break o metodo alternativo tiene su propias configuraciones de timeout
+
+https://cloud.spring.io/spring-cloud-netflix/multi/multi__hystrix_timeouts_and_ribbon_clients.html
+
+https://spring.getdocs.org/en-US/spring-cloud-docs/spring-cloud-netflix/router-and-filter-zuul/uploading-files-through-zuul.html
+
 

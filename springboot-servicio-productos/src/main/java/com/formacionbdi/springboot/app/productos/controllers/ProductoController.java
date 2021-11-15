@@ -47,10 +47,33 @@ public class ProductoController {
 		 * // simulamos un error para usar Tolerancia de fallos, latencia, timeout es la
 		 * // Api Hystrix
 		 */		boolean ok = false;
-		if (!ok) {
-			throw new RuntimeException("No se pudo cargar el producto.");
-		}
+//		if (!ok) {
+//			throw new RuntimeException("No se pudo cargar el producto.");
+//		}
 		/* end */
+		 
+//		 El tiempo de timeout para ribbon y hystrix es de 1 seg
+//		 Despues de 1 seg va alanzar un error
+		 
+//		 vamos a probar una falla timeout
+//		 Esto va a fallar porque el limite de tiempo max es de 1segundo
+//		 En el cliente , fresolvemos el timeout con esta  delaclaracion en el
+//		 propertie  item
+//		 #Hystrix(Camino alternativo) envuelve  a ribbon (Balanceador de carga),
+//		 # Entonces o ideal es que hystrix tenga un tiempo mayor a ribbon
+//		 #Para  subir archivos sta bien 60000 ms
+//		 #hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+//		 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 13000
+//		 #La suma  de ribbon, no debe pasar a hystrix .. En este caso 13000 que 
+//		 #es la suma de 10000 + 3000
+//		 ribbon.ConnectTimeout: 3000
+//		 ribbon.ReadTimeout: 100000
+//		 try {
+//			Thread.sleep(2000l);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		return producto;
 	}
