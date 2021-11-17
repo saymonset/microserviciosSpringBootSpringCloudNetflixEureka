@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
+import org.springframework.cloud.gateway.filter.OrderedGatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
@@ -32,7 +33,9 @@ public class EjemploGatewayFilterFactory extends AbstractGatewayFilterFactory<Ej
 	public GatewayFilter apply(Configuracion config) {
 		// Implementamos este metodo al vuelo con una expresion lambda
 		//Vamos a implementar esta interface funcional
-		return (exchange,chain)->{
+		//Implementamos el orden .. con el 2
+		//Se ordena el filtro si necesitamos ordenarlo, si necesitamos que un filtro sea prmero que otro filtro
+		return new OrderedGatewayFilter ((exchange,chain)->{
 			logger.info("Ejecutando esto con pre gateway filter factory: " + config.mensaje);
 			return chain.filter(exchange).then(Mono.fromRunnable(()->{
 				//ofNullable porque (of) es para convertir un valor en un optional, Nullable si el valor es nulo o no 
@@ -43,7 +46,8 @@ public class EjemploGatewayFilterFactory extends AbstractGatewayFilterFactory<Ej
 				
 				logger.info("Ejecutando post con  gateway filter factory: " + config.mensaje);
 			}));
-		};
+			//Implementamos el orden .. con el 2
+		}, 2);
 	}
 	
 	
@@ -53,6 +57,13 @@ public class EjemploGatewayFilterFactory extends AbstractGatewayFilterFactory<Ej
 		//Regresa una lista con los nombres de los parametros que se configuran en el yml o properties del filtro
 		
 		return Arrays.asList("mensaje","cookieNombre","cookieValor");
+	}
+
+
+
+	public String name() {
+		// Cambiamos el nombre del filtro y es el que va en el properties o yaml
+		return "EjemploCookie";
 	}
 
 
