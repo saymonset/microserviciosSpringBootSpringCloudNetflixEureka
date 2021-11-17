@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+       #Siempre respetar los espacios antes del valor
+       # id: servicio-productos
+      - id: servicio-productos
+        #lb es load balancer. Es una ruta al microservicio, instancia con balanceo de carga
+        uri: lb://servicio-productos
+        predicates:
+          - Path=/api/productos/**
+        filters:
+            #Es el numero de segmentos que esta compuesto la ruta /api/productos/**
+            #En este  caso son dos palabras separadas por / y se coloca StripPrefix=2
+          - StripPrefix=2
+       #Siempre respetar los espacios antes del valor
+       # id: servicio-productos
+      - id: servicio-items
+        #lb es load balancer. Es una ruta al microservicio, instancia con balanceo de carga
+        uri: lb://servicio-items
+        predicates:
+           - Path=/api/items/**
+        filters:
+            #Es el numero de segmentos que esta compuesto la ruta /api/productos/**
+            #En este  caso son dos palabras separadas por / y se coloca StripPrefix=2
+           - StripPrefix=2    

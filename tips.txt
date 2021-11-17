@@ -42,8 +42,24 @@ Seccion 23 -> 26
 
 Puerta de enlace Zuul (API GATEWAY). Que se encarga del acceso de los demas microservicios que estan registrados en eureka. Es la puerta de engrada a tod el ecoistema de mricroservicos.
 Enrutamiento de carga, balnceo dinamico y un conjunto de filros que se pueden implementar
-para manejo de rutas , seguridad , autorizacion
+para manejo de rutas , seguridad , autorizacion, manejo de error, monitorizacion.
+Zuul no es compatible con spring-boot 2.4 ni 2.5
+Con 2.2, 2.3 si hay compatibilidad
+
+Eureka Discovery Client en spring  cloud discovery.. Le decinos que sea un cliente de eureka
 
 
+Seccion 4 -> 
+Spring cloud gateway esta desarrollado por el equipo de spring cloud y usan programacion reactiva.
 
+Puerta de enlace o gateway es alternativa al viejo zuul
 
+Spring load balancer, alternativa al viejo Ribbon 
+
+Spring Cloud Routing -> Gateway ya incluye Cloaud LoadBalancer y no es necesario aregarlo 
+como dependencia..
+
+Se trabaja con la alternativa de Hystrix y es mas nueva y es SpringCloud Circuit Breake -> Resilience4j.
+
+SpringCloudGateway como trabaja con programacion reactiva , no es compatible con
+SpringSecurity OATH2 (Solo compaible con el api servlet), SpringSecurity OATH2 (Solo compaible con el api servlet),  solo trabaja con zuul
