@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.http.MediaType;
+import org.springframework.core.Ordered;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 
 //Lo autoregistramos como un bean
 @Component
-public class EjemploGlobalFilter implements GlobalFilter{
+public class EjemploGlobalFilter implements GlobalFilter, Ordered{
 	private final Logger logger = LoggerFactory.getLogger(EjemploGlobalFilter.class);
 
 	//Trabaja con observablez porque es programacion reactiva
@@ -40,8 +40,18 @@ public class EjemploGlobalFilter implements GlobalFilter{
 			logger.info("Ejecutando filter post");
 			exchange.getResponse().getCookies().add("color", 
 					ResponseCookie.from("color", "rojo").build());
-			exchange.getResponse().getHeaders().setContentType(MediaType.TEXT_PLAIN);
+			//exchange.getResponse().getHeaders().setContentType(MediaType.TEXT_PLAIN);
 		}));
+	}
+
+	@Override
+	public int getOrder() {
+		// TODO Auto-generated method stub
+		//Da error con -1 , entonces aqui debemos quitar el -1 porque con -1 da alta prioridad 
+		// y el response es solo lectura y no podemos escribir
+//		return -1;
+		//Lo cambiamos con 1
+		return 1;
 	}
 
 }
