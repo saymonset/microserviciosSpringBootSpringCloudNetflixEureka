@@ -14,12 +14,8 @@ spring:
             #En este  caso son dos palabras separadas por / y se coloca StripPrefix=2
           - StripPrefix=2
             #Colocamos el filtro personalizado por nosotros
-          - name: Ejemplo
-            args:
-              mensaje: Hola mi mensaje personalizado
-              cookieNombre: usuario
-              #El valor de la cookie no deb tener espacio
-              cookieValor: AndresGuzman
+                        #El valor de la cookie no deb tener espacio
+          - Ejemplo=Hola mi mensaje personalizado, usuario, AndresGuzman
        #Siempre respetar los espacios antes del valor
        # id: servicio-productos
       - id: servicio.items
