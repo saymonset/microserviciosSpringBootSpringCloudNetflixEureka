@@ -10,15 +10,15 @@ spring:
         predicates:
           - Path=/api/productos/**
           #En el predicado, estamos forzando a que los headers deben tener un token decimal para ir al path=/api/productos/**
-          - Header=token, \d+
-          - Method=GET, POST
+         # - Header=token, \d+
+          #- Method=GET, POST
           #En una peticion get , no enviamo ningun tipo de objeto en el request
-          - Header=Content-Type, application/json
+        #  - Header=Content-Type, application/json
           #Enviame un paramero con el nombre color y valor verder
           #- Query=color, verde
           #Que contenga un nombre de parametro color
-          - Query=color
-          - Cookie=color, azul
+#          - Query=color
+#          - Cookie=color, azul
         filters:
             #Es el numero de segmentos que esta compuesto la ruta /api/productos/**
             #En este  caso son dos palabras separadas por / y se coloca StripPrefix=2
