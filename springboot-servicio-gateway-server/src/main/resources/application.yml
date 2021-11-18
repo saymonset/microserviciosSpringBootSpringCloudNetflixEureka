@@ -27,3 +27,9 @@ spring:
             #Es el numero de segmentos que esta compuesto la ruta /api/productos/**
             #En este  caso son dos palabras separadas por / y se coloca StripPrefix=2
            - StripPrefix=2    
+           #Agregamos un token a la cabecera...
+           - AddRequestHeader=token-request, valordeltoken-simons-1233456
+           - AddResponseHeader=token-response, valordeltoken-response-simons-123345678
+           - SetResponseHeader=Content-type, text/plain
+           #Pasar parametros al request (Nombre y valor separados por coma)
+           - AddRequestParameter=nombre, requestParameterSaymon

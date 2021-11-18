@@ -62,4 +62,10 @@ como dependencia..
 Se trabaja con la alternativa de Hystrix y es mas nueva y es SpringCloud Circuit Breake -> Resilience4j.
 
 SpringCloudGateway como trabaja con programacion reactiva , no es compatible con
-SpringSecurity OATH2 (Solo compaible con el api servlet), SpringSecurity OATH2 (Solo compaible con el api servlet),  solo trabaja con zuul
+SpringSecurity OATH2 (Solo compaible con el api servlet), SpringSecurity OATH2 (Solo compaible con el api servlet),  solo trabaja con zuul.
+
+Es recomendable levantar Gateway al final como se hace con Zuul
+
+Tipos de como configurar filtros en gateWay
+
+https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/#the-addrequestparameter-gatewayfilter-factory
