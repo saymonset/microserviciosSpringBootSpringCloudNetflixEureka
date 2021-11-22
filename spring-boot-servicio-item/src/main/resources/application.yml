@@ -1,0 +1,32 @@
+resilience4j:
+  circuitbreaker:
+    configs:
+#    Le asignamos un nombre cualquiera como por ejemplo defecto
+      defecto:
+      #Tamano de la ventana deslizante
+         sliding-window-size: 6
+         #Configuramos la taza umbral que es 50%
+         failure-rate-threshold: 50
+         #Tiempo de espera que va a estar en estado abierto
+         wait-duration-in-open-state: 20s
+         #Cantidad de llamadas permitidas en el estado semiabierto
+         permitted-number-of-calls-in-half-open-state: 4
+         #Configuracion de llamadas lentas
+         #Porcentaje umbral de llamadas lentas es 50%. Si supera el 50% del tamano de la ventana deslizante, 
+         #entra en cortocircuito, estado abierto
+         slow-call-rate-threshold: 50
+         #Para que se cumpla el error de llamada lenta es de 2 segundos
+         slow-call-duration-threshold: 2s
+    instances:
+         #Este nombre items es el mismo nombre que tenemos en el controlador con el return de cbFactory.create("items")
+         # y los archivos .yml tiene prioridad a las anotaciones con configuration 
+       items: 
+          base-config: defecto
+  timelimiter:
+    configs:
+      defecto:
+          timeout-duration: 6s
+    instances:
+       items:   
+          base-config: defecto
+      
