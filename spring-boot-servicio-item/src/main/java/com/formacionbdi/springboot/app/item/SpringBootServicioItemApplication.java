@@ -2,7 +2,8 @@ package com.formacionbdi.springboot.app.item;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+//Ya quitamos la libreria del pom y hay ue quitarla
+/*import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;*/
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
@@ -10,7 +11,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 //Tolerancia de fallos, latencia, timeout es la  Api Hystrix, la habilitamos
 //Utiliza ribbon por defecto que es el balanceador de carga y l trae por defecto eureka, no hay que
 //declarar ribbon en el pom
-@EnableCircuitBreaker
+//Ya quitamos la libreria del pom y hay ue quitarla
+/*@EnableCircuitBreaker*/
 
 //Importante para habilitar nuestro cliente feigns y nos permite
 //inyectar este cliente en los controladores

@@ -1,6 +1,7 @@
 package com.formacionbdi.springboot.app.productos.controllers;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,15 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/ver/{id}")
-	public Producto detlle(@PathVariable Long id) {
+	public Producto detlle(@PathVariable Long id) throws InterruptedException {
+		//solo para prueba , lanzamos esta exception
+		if(id.equals(10L)) {
+			throw new IllegalStateException("Producto no encontrado!");
+		}
+		
+		if(id.equals(7l)) {
+			TimeUnit.SECONDS.sleep(5l);
+		}
 		
 		Producto producto = productoService.findById(id);
 		/* Con este local.server.port va a tomar el puerto real dinamicamente */

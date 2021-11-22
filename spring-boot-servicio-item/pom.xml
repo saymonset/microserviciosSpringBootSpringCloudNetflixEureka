@@ -12,11 +12,14 @@
 			productos y pueda seleccionar la emjor instancia disponible utilizando la 
 			libreria ribbon que es un balanceador de carga. La version de springboot 
 			2.4 en adelante no es compatible con Ribbon -->
-		<!-- <version>2.5.6</version> -->
+			<!-- DesComentamos porque vamos a trabajar con Resilience4j y usamos la ultima version de spring-->
+		<version>2.5.6</version>
 		<!-- Bajamos la version solo con efecto de usar Ribbon como balanceador 
 			de carga sin Eureka -->
 		<!-- SpringCloadLoadBalancer es equivalente a Ribbon y que viene por defecto -->
-		<version>2.3.12.RELEASE</version>
+		<!-- Comentamos porque vamos a trabajar con Resilience4j -->
+		<!-- <version>2.3.12.RELEASE</version> -->
+		 
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.formacionbdi.springboot.app.item</groupId>
@@ -35,12 +38,15 @@
 		<!-- Cada version de springBoot va con una nueva version especifica de 
 			spring-cloud -->
 		<!-- Va con laversion de springboot <version>2.5.6</version> -->
-		<!-- <spring-cloud.version>2020.0.4</spring-cloud.version> -->
+		<!-- DesComentamos porque vamos a trabajar con Resilience4j y usamos la ultima version de spring-cloud que va
+		de la mano con la ultima de spring-boot-->
+	     <spring-cloud.version>2020.0.4</spring-cloud.version>
 		<!-- Porque cambiamos de version de spring-boot para ussar Ribbon -->
 		<!-- se debe actualizar el spring-cloud que va con esa version especifica 
 			de sprngboot -->
 		<!-- Va con laversion de springboot <version>2.3.12.RELEASE</version> -->
-		<spring-cloud.version>Hoxton.SR12</spring-cloud.version>
+		<!-- comentamos porque vamos a trabajar con Resilience4j y usamos la ultima version de spring-->
+		<!-- <spring-cloud.version>Hoxton.SR12</spring-cloud.version> -->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -71,10 +77,12 @@
 		</dependency>
 		<!-- Tolerancia de fallos. Implementamos el patron de diseno corto circuit  que en ingles es circuit breaker.
 Api Hystrix es compatible con la serie spring-boot 2.2, 2.3, Hoxton.SR12 -->
-   <dependency>
+
+<!-- Comentamos porque vamos a trabajar con Resilience4j -->
+   <!-- <dependency>
        <groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-   </dependency>
+   </dependency> -->
 		
 		<!-- #Esto libreria ribbon ya no va, ya que esta informacion nos la da eureka
 #Solo se comunicara mediante nombre de
@@ -89,6 +97,20 @@ de Spring Cloud Discover -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		
+		
+		<!-- <artifactId>spring-cloud-starter-bootstrap</artifactId> lo colocamos manual
+		que sirve para el server de confivuraciones -->
+		<!-- Vamos a usar un archivo boostrap propertie y para utlizarlo
+		necesitamos esta libreria -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
 		</dependency>
 	</dependencies>
 

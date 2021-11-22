@@ -69,3 +69,30 @@ Es recomendable levantar Gateway al final como se hace con Zuul
 Tipos de como configurar filtros en gateWay
 
 https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/#the-addrequestparameter-gatewayfilter-factory
+
+
+git commit -am "Seccion 4 -> 40. Realizar predicados en el gateway request y validar antes de hacer peticiones.
+https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/#gateway-request-predicates-factories"
+
+Seccion 5 ->Resilience4j Resilencia y tolerancia a fallos que va a sustituir  por Hystrix.
+
+Resiliance4j:  implementa el patron cortocircuit , disenada con programacion funcional y expresiones lambda java 8 , anotaciones y es una libreria para trabajar con resilencia
+y tolerancia a fallos.
+
+Recientes nuevas de springCloud version 2020.0.0 en adelante llamada o se le conoce como llford y viene de la mano spring-boot 2.4.1.
+
+Reuerden que siempre una version de spring-cloud viene de la mano con una version de spring-boot.
+
+Hystrix  de netflix a venido por defecto a las versiones anteriores a de la sping-cloud 2020.0.0.
+
+Estados del patron circuitBraker.  (1)Cerrado, (2)Abierto, (3)semiabierto.
+
+El patron cortocircuito tiene 3 estado:
+1 -) Cerrado: Cuando todo sale bien. Incialmente esta en estado cerrado.
+2-) Abierto : Cuando la tasa de falla supera el umbral. En este estado, las solicitudes al microservicio con fallas no se realizaran. Cuando halla pasado un cierto limite de tiempo cambiara a un estado semiabierto.
+3-) Semiabierto: Se  ejecutara varias solicitudes para saber si el microservicio esta funcionando con normalidad o no. Si tiene exito, volvera al estado cerrado, si aun falla, volvera al estado abierto.
+
+
+
+
+
