@@ -92,6 +92,34 @@ El patron cortocircuito tiene 3 estado:
 2-) Abierto : Cuando la tasa de falla supera el umbral. En este estado, las solicitudes al microservicio con fallas no se realizaran. Cuando halla pasado un cierto limite de tiempo cambiara a un estado semiabierto.
 3-) Semiabierto: Se  ejecutara varias solicitudes para saber si el microservicio esta funcionando con normalidad o no. Si tiene exito, volvera al estado cerrado, si aun falla, volvera al estado abierto.
 
+Parametros de configuraciones del circuitBreaker.
+
+1-)slidingWindowSize(100): Tamano de la ventana deslizante, por defecto son 100.
+Es un muestreo estadistico. Vamos a tener 100 peticiones a un microservicio particular
+y dentro de esas 100 soliitudes se va a registrar un porcentaje de falla y si este porcentaje de falla es igual o mayor que el umbral que tenemos configurado, se abre el corto circuito.
+
+2-) failureRateThreshold(50): Este es el porcentaje de falla, es el umbral. Si las 100 (slidingWindowSize(100)) peticiones al microservicio falla el 50% (failureRateThreshold(50)), se abre el cortocircuito y comienza el ciclo de los estado.
+De cerrado a abierto despues de 60segundos por defecto pasa a semiabierto y despues de semiabierto va a realizar peticiones de prueba para ver si falla o no falla y asi a ver si continua o no el ciclo si pasa a  errado o pasa de nuevo a abierto.
+
+3-) waitDurationOpenState(60000 ms): Tiempo que permanece a estado abierto.
+
+4-) permittedNumberOfCallsInHalfOpenState(10): El numero permitido de llamadas al estado semiabierto. Por defecto son 10.
+ 
+5-) showCallRateThreshold(100): Relacionada a lentitud de comunicacion de microsevicio. Tasa por defecto 100 del umbral cuando la llamada es lenta.Si 100 resuqest son lentas, entra al cortocicuit
+6-)slowCallDurationThreshold(60000ms): Si tarda mas de 60000ms , se considera llamada lenta.
+
+
+
+Seccion 5 -> 46. Vamos a configurar estos parametros con otros valores 
+  slidingWindowSize(100), failureRateThreshold(50), waitDurationOpenState(60000 ms), 
+  permittedNumberOfCallsInHalfOpenState(10),showCallRateThreshold(100), slowCallDurationThreshold(60000ms).
+
+  El resilience4j esta configurado por default y su nombre actual es items.
+
+
+
+
+
 
 
 
