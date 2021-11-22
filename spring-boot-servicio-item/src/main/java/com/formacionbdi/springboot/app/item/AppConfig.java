@@ -52,11 +52,24 @@ public class AppConfig {
 				    		  //Semiabierto, permote probar 5 veces y si hay error.o mandaos nuevamente al estado abierto, si no hay error
 				    		  //lo mandamos al estado cerrado
 				    		  .permittedNumberOfCallsInHalfOpenState(5)
+				    		  //Esto configura el porcentaje de umbral en llamadas lentas
+				    		  //Configuramos la llamada lenta al 50%.. Por default es 100%
+				    		  //Si el umbral de 50% es alcanado en llmdas lentas a 2l que es dos segundos slowCallDurationThreshold configurado
+				    		  //en slowCallDurationThreshold, entonces pasa al estado abierto por ser una llamada lenta
+				    		  .slowCallRateThreshold(50)
+				    		  //configuramos llamada lenta en 2 seg
+				    		  //Configuramos el tiempo maximo en durar una llamada lenta en particular
+				    		  //Debe ser esta menor al del timeout , porque si no, se dispara primero eel timeout
+				    		  .slowCallDurationThreshold(Duration.ofSeconds(2l))
 				    		  .build())
 				      //Con ofDefaults.. dejamos los valores por defecto  y no es necesasrio usar el build
 				   //Configuramos el timeout o tiempo limite en el fondo
 				   //El timeout por defecto es de un segundo.. Si tarda la llamada mas de 1 seg, se dispara el timeout errr
-				      .timeLimiterConfig(TimeLimiterConfig.ofDefaults())
+//				      .timeLimiterConfig(TimeLimiterConfig.ofDefaults())
+				   //Configuramos personalizadamente el timeout
+				   .timeLimiterConfig(TimeLimiterConfig.custom()
+						   //Timeout Debe ser esta mayor al de la llamada lenta  , porque si no, se dispara primero el timeout
+						     .timeoutDuration(Duration.ofSeconds(6l)).build())
 				      //Este build construye todo (cutom y ofdefaults)
 				      .build();
 				      
