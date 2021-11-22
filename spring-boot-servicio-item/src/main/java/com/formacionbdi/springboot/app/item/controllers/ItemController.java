@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.formacionbdi.springboot.app.item.models.Item;
 import com.formacionbdi.springboot.app.item.models.Producto;
 import com.formacionbdi.springboot.app.item.models.service.ItemService;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 //Ya quitamos la libreria del pom y hay ue quitarla
 /*import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;*/
 
@@ -74,6 +76,14 @@ public class ItemController {
 				.run(()-> itemService.findById(id, cantidad), e -> metodoAlternativo(id, cantidad, e));
 	}
 	
+//	Siempre que vallamos hacer anotaciones, sus variables como items, hay que configurarls en properties o yaml
+	//Este name="items" esta configurado en el yml
+	@CircuitBreaker(name="items", fallbackMethod = "metodoAlternativo")
+	@GetMapping("/ver2/{id}/cantidad/{cantidad}")
+	public Item detalle2(@PathVariable Long id, @PathVariable Integer cantidad) {
+ 		
+		return itemService.findById(id, cantidad);
+	}
 //	Tiene que se r un metodo igul al original el metodo lternativo
 	public Item metodoAlternativo(@PathVariable Long id, Integer cantidad, Throwable e) {
 		logger.info(e.getMessage());
