@@ -48,9 +48,14 @@ public class AppConfig {
 				    		  //Tiempo de espera en el estado abierto
 				    		  //Aqui usamos la clase de java8 , java time duration
 				    		  .waitDurationInOpenState(Duration.ofSeconds(10l))
+				    		  //Permitido numero de llamadas en estado semiabierto..Por defecto son 10, colocamos 5
+				    		  //Semiabierto, permote probar 5 veces y si hay error.o mandaos nuevamente al estado abierto, si no hay error
+				    		  //lo mandamos al estado cerrado
+				    		  .permittedNumberOfCallsInHalfOpenState(5)
 				    		  .build())
 				      //Con ofDefaults.. dejamos los valores por defecto  y no es necesasrio usar el build
 				   //Configuramos el timeout o tiempo limite en el fondo
+				   //El timeout por defecto es de un segundo.. Si tarda la llamada mas de 1 seg, se dispara el timeout errr
 				      .timeLimiterConfig(TimeLimiterConfig.ofDefaults())
 				      //Este build construye todo (cutom y ofdefaults)
 				      .build();
