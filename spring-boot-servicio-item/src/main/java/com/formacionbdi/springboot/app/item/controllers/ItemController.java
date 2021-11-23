@@ -92,8 +92,10 @@ public class ItemController {
 	//Si queremos conbinar el umbral de cortocircuito.. Usamos esta anotacion
 	//Lo podemos maneja por separado
 	//1-)Solamente timeout o  solamente circuitBreaker o la combinacion de ambas
-	@CircuitBreaker(name="items")
-	@TimeLimiter(name="items", fallbackMethod = "metodoAlternativo2")
+//Para combinar ambas anotaciones como el timeout y el circuitbreaker con tolerancia a fallas con manejo de errores
+	//manejo de excepciones.. , solamente dejamos el fallbackMethod en el circuitBreaker y lo quitamos de TimeLimiter
+	@CircuitBreaker(name="items",fallbackMethod = "metodoAlternativo2")
+	@TimeLimiter(name="items")
 	@GetMapping("/ver3/{id}/cantidad/{cantidad}")
 	public CompletableFuture<Item>  detalle3(@PathVariable Long id, @PathVariable Integer cantidad) {
 		//Aqui envolvemos esta llamada en una representacion futura asyncrona para calcular el tiempo de espera, el timeout
