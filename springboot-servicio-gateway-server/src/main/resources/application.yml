@@ -1,3 +1,34 @@
+resilience4j:
+  circuitbreaker:
+    configs:
+#    Le asignamos un nombre cualquiera como por ejemplo defecto
+      defecto:
+      #Tamano de la ventana deslizante
+         sliding-window-size: 6
+         #Configuramos la taza umbral que es 50%
+         failure-rate-threshold: 50
+         #Tiempo de espera que va a estar en estado abierto
+         wait-duration-in-open-state: 20s
+         #Cantidad de llamadas permitidas en el estado semiabierto
+         permitted-number-of-calls-in-half-open-state: 4
+         #Configuracion de llamadas lentas
+         #Porcentaje umbral de llamadas lentas es 50%. Si supera el 50% del tamano de la ventana deslizante, 
+         #entra en cortocircuito, estado abierto
+         slow-call-rate-threshold: 50
+         #Para que se cumpla el error de llamada lenta es de 2 segundos
+         slow-call-duration-threshold: 2s
+    instances:
+         #Este nombre items es el mismo nombre que tenemos en el controlador con el return de cbFactory.create("items")
+         # y los archivos .yml tiene prioridad a las anotaciones con configuration 
+       productos: 
+          base-config: defecto
+  timelimiter:
+    configs:
+      defecto:
+          timeout-duration: 2s
+    instances:
+       productos:   
+          base-config: defecto
 spring:
   cloud:
     gateway:
@@ -20,6 +51,18 @@ spring:
 #          - Query=color
 #          - Cookie=color, azul
         filters:
+        #CircuitBreaker es un filter especial que viene de fabrica en springCloudGateway.
+        # Esto para manejar el error 500 que ocurre en el server.. lo manejamos con stas instrucciones
+          - name: CircuitBreaker
+            args: 
+              name: productos
+              #En este caso agarramos el error de 500 con el id = 10 en productos que intencionalmente mandamos un error
+              statusCodes: 500, 404
+              #Configuramos un Camino alternativo en gateWay, Colocamos cualquier url de desvio en caso que falle 
+              #y lo llevamos al camino alternatvo
+              #No puede llamar a la misma ruta que origino el cortocircuito en el umbral porque pasaria a un ciclo infinito
+              #Lo mandamosn a items cuando falle productos
+              fallbackUri: forward:/api/items/ver/2/cantidad/5
             #Es el numero de segmentos que esta compuesto la ruta /api/productos/**
             #En este  caso son dos palabras separadas por / y se coloca StripPrefix=2
           - StripPrefix=2

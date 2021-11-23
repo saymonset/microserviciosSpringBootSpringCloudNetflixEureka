@@ -116,6 +116,11 @@ Seccion 5 -> 46. Vamos a configurar estos parametros con otros valores
 
   El resilience4j esta configurado por default y su nombre actual es items.
 
+seccion 5->49: Configurar resilience4j en el properties yaml para personalizar el circuit breaker.
+La configuracion del yml tiene mas prioridad que las anotaciones configuration
+
+
+seccion 5 ->53. Para combinar ambas anotaciones como el timeout y el circuitbreaker con tolerancia a fallas con manejo de errores y manejo de excepciones.. , solamente dejamos el fallbackMethod en el circuitBreaker y lo quitamos de TimeLimiter
 
 
 

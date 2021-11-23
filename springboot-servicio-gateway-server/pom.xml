@@ -20,7 +20,10 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+			<!-- En el wissard para colocar la api de resilience4j , me trajo esta por defecto -->
+			<!-- <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId> -->
+			<!-- Tiene que ser reactor,  La cambiaremos a reactor , Esto es porque tiene que ser una dependencia reactiva-->
+			<artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
