@@ -1,6 +1,7 @@
 package com.formacionbdi.springboot.app.item.controllers;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import com.formacionbdi.springboot.app.item.models.Producto;
 import com.formacionbdi.springboot.app.item.models.service.ItemService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 //Ya quitamos la libreria del pom y hay ue quitarla
 /*import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;*/
 
@@ -81,9 +83,37 @@ public class ItemController {
 	@CircuitBreaker(name="items", fallbackMethod = "metodoAlternativo")
 	@GetMapping("/ver2/{id}/cantidad/{cantidad}")
 	public Item detalle2(@PathVariable Long id, @PathVariable Integer cantidad) {
- 		
 		return itemService.findById(id, cantidad);
 	}
+
+//	Configurando el timeout que por defecto es  1 seg
+	//Aqui invocaremos una llamada en el futuro que tiene cierto delay
+	//No va contabilizando para el umbral de cortocircuito
+	//Si queremos conbinar el umbral de cortocircuito.. Usamos esta anotacion
+	//Lo podemos maneja por separado
+	//1-)Solamente timeout o  solamente circuitBreaker o la combinacion de ambas
+	@CircuitBreaker(name="items")
+	@TimeLimiter(name="items", fallbackMethod = "metodoAlternativo2")
+	@GetMapping("/ver3/{id}/cantidad/{cantidad}")
+	public CompletableFuture<Item>  detalle3(@PathVariable Long id, @PathVariable Integer cantidad) {
+		//Aqui envolvemos esta llamada en una representacion futura asyncrona para calcular el tiempo de espera, el timeout
+		return CompletableFuture.supplyAsync(()-> itemService.findById(id, cantidad)) ;
+	}
+	
+	//El metodo alternativo tambien tiene que estar en una representacion futura asyncrona para calcular el tiempo de espera, el timeout
+	public CompletableFuture<Item>  metodoAlternativo2(@PathVariable Long id, Integer cantidad, Throwable e) {
+		logger.info(e.getMessage());
+		Item item = new Item();
+		Producto producto = new Producto();
+		item.setCantidad(cantidad);
+		producto.setId(id);
+		producto.setNombre("Camar Sony Metodo Alternativo");
+		producto.setPrecio(500.00);
+		item.setProducto(producto);
+		return CompletableFuture.supplyAsync(()-> item);
+	}
+	
+	
 //	Tiene que se r un metodo igul al original el metodo lternativo
 	public Item metodoAlternativo(@PathVariable Long id, Integer cantidad, Throwable e) {
 		logger.info(e.getMessage());
@@ -95,7 +125,6 @@ public class ItemController {
 		producto.setPrecio(500.00);
 		item.setProducto(producto);
 		return item;
-		
 	}
 	
 
