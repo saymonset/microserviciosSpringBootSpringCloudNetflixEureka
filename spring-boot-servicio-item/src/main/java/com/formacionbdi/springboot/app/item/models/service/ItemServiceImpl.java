@@ -23,8 +23,10 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<Item> findAll() {
 		List<Producto> productos = Arrays.asList(
-				clienteRest.getForObject("http://servicio-productos/listar", 
+				this.clienteRest.getForObject("http://servicio-productos/listar",
 						Producto[].class));
+//		Con java 8, convertinos una collecion en un flujo y por cada flujo a traves de un map
+//				convertimos ese objeto en otro objeto y luego lo transformamos a una nuevaa lista con collect(Collectors.toList())
 		return productos.stream().map((p)-> new Item(p, 1))
 				.collect(Collectors.toList());
 	}
@@ -33,7 +35,7 @@ public class ItemServiceImpl implements ItemService {
 	public Item findById(Long id, Integer cantidad) {
 		Map<String, String> pathVariables = new HashMap<String, String>();
 		pathVariables.put("id", id.toString());
-		Producto producto = clienteRest.
+		Producto producto = this.clienteRest.
 				getForObject("http://servicio-productos/ver/{id}",
 				            Producto.class,
 				            pathVariables);

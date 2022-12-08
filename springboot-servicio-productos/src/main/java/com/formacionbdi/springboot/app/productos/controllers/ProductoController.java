@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.formacionbdi.springboot.app.productos.models.entity.Producto;
 import com.formacionbdi.springboot.app.productos.models.service.IProductoService;
 
+//Esta anotacion es transformar los resutados de los metodos handler a json
 @RestController
 public class ProductoController {
 	
@@ -29,10 +30,10 @@ public class ProductoController {
 	
 	@GetMapping("/listar")
 	public List<Producto> listar(){
-		return productoService.findAll().stream()
+		return this.productoService.findAll().stream()
 				.map((producto)->{
 					/* Con este local.server.port va a tomar el puerto real dinamicamente */
-			     producto.setPort(Integer.parseInt(env.getProperty("local.server.port"))); 
+			     producto.setPort(Integer.parseInt(this.env.getProperty("local.server.port")));
 				//	producto.setPort(port);
 					return producto;
 				}).collect(Collectors.toList());
@@ -49,9 +50,9 @@ public class ProductoController {
 			TimeUnit.SECONDS.sleep(5l);
 		}
 		
-		Producto producto = productoService.findById(id);
+		Producto producto = this.productoService.findById(id);
 		/* Con este local.server.port va a tomar el puerto real dinamicamente */
-		 producto.setPort(Integer.parseInt(env.getProperty("local.server.port"))); 
+		 producto.setPort(Integer.parseInt(this.env.getProperty("local.server.port")));
 		//producto.setPort(port);
 		
 		/*
